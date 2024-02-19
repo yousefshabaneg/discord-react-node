@@ -1,16 +1,19 @@
 import { NextFunction, Request, Response } from "express";
 import catchAsync from "../helpers/catchAsync";
-import User from "../models/user";
+import User, { IUser } from "../models/user";
 import AppError from "../helpers/AppError";
 
 class AuthController {
   static login = catchAsync(async (req, res, next) => {
     const { email, password } = req.body;
 
-    const user: any = await User.login(email, password);
+    const user: IUser = await User.login(email, password);
+    const token = await user.generateToken();
+
     res.json({
       status: "success",
       message: "User logged successfully",
+      token,
       data: user,
     });
   });

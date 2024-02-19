@@ -1,7 +1,8 @@
 import AuthController from "../controllers/authController";
 import Joi from "joi";
 import { createValidator } from "express-joi-validation";
-import express from "express";
+import express, { Response } from "express";
+import AuthMiddleware from "../middleware/authMiddleware";
 const router = express.Router();
 const validator = createValidator({});
 
