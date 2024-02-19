@@ -1,16 +1,16 @@
-process.on("uncaughtException", (err) => {
+import config from "./config";
+import "./database";
+
+process.on("uncaughtException", (err: Error) => {
   console.log("UNCAUGHT EXCEPTION 💥 Shutting down...");
   console.log(err.name, err.message);
   process.exit(1);
 });
 
-require("dotenv").config();
-require("./db");
-const app = require("./app");
+import app from "./app";
+import http from "http";
 
-const http = require("http");
-
-const PORT = process.env.PORT || process.env.API_PORT;
+const PORT = config.apiPort;
 
 const server = http.createServer(app);
 
@@ -18,7 +18,7 @@ server.listen(PORT, () =>
   console.log(`Server Running on http://localhost:${PORT}`)
 );
 
-process.on("unhandledRejection", (err) => {
+process.on("unhandledRejection", (err: Error) => {
   if (err.name === "MongoServerError") {
     console.log("UNHANDLED REJECTION! 💥 Shutting down...");
     console.log(err.name, err.message);
