@@ -13,18 +13,19 @@ class AuthController {
     res.json({
       status: "success",
       message: "User logged successfully",
-      token,
-      data: user,
+      data: { ...user.toJSON(), token },
     });
   });
 
   static register = catchAsync(
     async (req: Request, res: Response, next: NextFunction) => {
       const newUser = await User.create(req.body);
+      const token = await newUser.generateToken();
+
       res.json({
         status: "success",
         message: "User created successfully",
-        data: newUser,
+        data: { ...newUser.toJSON(), token },
       });
     }
   );
