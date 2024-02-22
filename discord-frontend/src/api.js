@@ -48,6 +48,7 @@ export const register = async (data) => {
 
 // secure routes
 
+// eslint-disable-next-line no-unused-vars
 const checkResponseCode = (exception) => {
   const responseCode = exception?.response?.status;
 

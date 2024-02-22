@@ -1,5 +1,6 @@
 import config from "./config";
 import "./database";
+import SocketServer from "./socketServer";
 
 process.on("uncaughtException", (err: Error) => {
   console.log("UNCAUGHT EXCEPTION 💥 Shutting down...");
@@ -13,6 +14,7 @@ import http from "http";
 const PORT = config.apiPort;
 
 const server = http.createServer(app);
+SocketServer.registerSocketServer(server);
 
 server.listen(PORT, () =>
   console.log(`Server Running on http://localhost:${PORT}`)
