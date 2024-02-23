@@ -3,6 +3,7 @@ import { Application, NextFunction, Request, Response } from "express";
 import express from "express";
 import cors from "cors";
 import authRoutes from "./routes/authRoutes";
+import friendInvitationRoutes from "./routes/friendInvitationRoutes";
 import AppError from "./helpers/AppError";
 import globalErrorHandler from "./controllers/errorController";
 
@@ -13,6 +14,7 @@ app.use(cors());
 //Routes
 
 app.use("/api/auth", authRoutes);
+app.use("/api/friend-invitation", friendInvitationRoutes);
 
 app.all("*", (req: Request, res: Response, next: NextFunction) => {
   const err = new AppError(
